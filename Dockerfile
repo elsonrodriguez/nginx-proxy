@@ -8,7 +8,6 @@ RUN add-apt-repository -y ppa:nginx/stable
 
 RUN apt-get update
 RUN apt-get install -y nginx
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 RUN mkdir /etc/nginx/ssl
 WORKDIR /etc/nginx/ssl
@@ -19,6 +18,7 @@ RUN openssl x509 -req -days 10000 -in server.csr -signkey server.key -out server
 RUN mkdir /app
 WORKDIR /app
 ADD . /app
+ADD nginx.conf /etc/nginx/nginx.conf
 
 RUN wget https://github.com/jwilder/docker-gen/releases/download/0.2.1/docker-gen-linux-amd64-0.2.1.tar.gz
 RUN tar xvzf docker-gen-linux-amd64-0.2.1.tar.gz
